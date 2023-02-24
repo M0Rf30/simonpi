@@ -1,0 +1,134 @@
+name: simonpi
+help: A Swiss Army knife to emulate Raspberry PI family devices on your laptop.
+version: 2.0.0
+
+environment_variables:
+  - name: storage
+    required: true
+    help: Set your storage home path
+    default: ${HOME}/.simonpi
+  - name: kernel_path
+    required: true
+    help: Set the kernel home path
+    default: ./data/kernels
+
+commands:
+  - name: completions
+    help: |-
+      Generate bash completions
+      Usage: eval "\$(simonpi completions)"
+
+  - name: check
+    help: Check filesystem integrity of disk image
+    args:
+      - name: model
+        required: true
+        help: Raspberry Pi model (rpi, rpi-2, rpi-3, rpi-4)
+
+    examples:
+      - simonpi c rpi
+      - simonpi check rpi-4
+
+  - name: epurge
+    help: Purge everything in storage folder
+    args:
+      - name: model
+        required: true
+        help: Raspberry Pi model (rpi, rpi-2, rpi-3, rpi-4)
+    examples:
+      - simonpi epurge rpi
+      - simonpi e rpi-4
+
+  - name: kernel
+    help: Download latest available kernel for your target
+    args:
+      - name: model
+        required: true
+        help: Raspberry Pi model (rpi, rpi-2, rpi-3, rpi-4)
+    examples:
+      - simonpi kernel rpi
+      - simonpi k rpi-4
+
+  - name: kill
+    help: Kill every instance and network virtual interface
+    args:
+      - name: model
+        required: true
+        help: Raspberry Pi model (rpi, rpi-2, rpi-3, rpi-4)
+
+    examples:
+      - simonpi kill rpi
+      - simonpi k rpi-4
+
+  - name: list
+    help: List files in storage folder
+    args:
+      - name: model
+        required: true
+        help: Raspberry Pi model (rpi, rpi-2, rpi-3, rpi-4)
+    examples:
+      - simonpi list rpi
+      - simonpi l rpi-4
+
+  - name: mount
+    help: Mount boot and root partitions
+    args:
+      - name: model
+        required: true
+        help: Raspberry Pi model (rpi, rpi-2, rpi-3, rpi-4)
+    examples:
+      - simonpi mount rpi
+      - simonpi m rpi-4
+
+  - name: purge
+    help: Purge everything except for downloaded archives
+    args:
+      - name: model
+        required: true
+        help: Raspberry Pi model (rpi, rpi-2, rpi-3, rpi-4)
+
+    examples:
+      - simonpi purge rpi
+      - simonpi p rpi-4
+
+  - name: run
+    help: Run QEMU processor emulator for defined model
+    args:
+      - name: model
+        required: true
+        help: Raspberry Pi model (rpi, rpi-2, rpi-3, rpi-4)
+    flags:
+      - long: --path
+        arg: path
+        help: Path to Qemu disk image
+    examples:
+      - simonpi run rpi
+      - simonpi r rpi-4
+      - simonpi run rpi --path my_image.img
+      - simonpi r rpi-4 -p /home/simonpi/my_image.img
+
+  - name: umount
+    help: Unmount boot and root partitions
+    args:
+      - name: model
+        required: true
+        help: Raspberry Pi model (rpi, rpi-2, rpi-3, rpi-4)
+    examples:
+      - simonpi umount rpi
+      - simonpi u rpi-4
+
+  - name: write
+    help: Write a partitioned raw image disk with Arch Linux
+    args:
+      - name: model
+        required: true
+        help: Raspberry Pi model (rpi, rpi-2, rpi-3, rpi-4)
+    flags:
+      - long: --size
+        required: true
+        short: -s
+        help: QEMU disk image size in GB
+        arg: size
+    examples:
+      - simonpi write rpi --size 4
+      - simonpi w rpi-4 -s 4

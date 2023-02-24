@@ -1,0 +1,33 @@
+#!/bin/bash
+
+chmod +x /usr/bin/simonpi
+
+echo "===> Networking settings ..."
+# If we have a BRIDGE_IF set, add it to /etc/qemu/bridge.conf
+mkdir -p /etc/qemu
+echo "allow rasp-br0" >>/etc/qemu/bridge.conf
+
+## download
+download() {
+	curl -sL -O -C - "$1"
+}
+
+install_efi() {
+	# Need to be manually bumped
+	pkgver=202111
+
+	cd /home || exit
+
+	# EDK2 Firmwares
+	# AARCH64
+	download "https://mirror.ubrco.de/archlinux/extra/os/x86_64/edk2-armvirt-${pkgver}-5-any.pkg.tar.zst"
+	tar xJf "edk2-armvirt-${pkgver}-5-any.pkg.tar.zst" --directory=/
+	# ARMV7 (built on CI here #https://github.com/M0Rf30/qemu-edk2-armv7 )
+	download "https://github.com/M0Rf30/qemu-edk2-armv7/releases/download/202111-1/edk2-arm-${pkgver}-1-any.pkg.tar.zst"
+	tar xJf "edk2-arm-${pkgver}-1-any.pkg.tar.zst" --directory=/
+}
+
+echo "===> Installing ARM & AARCH64 edk2 efi images"
+install_efi
+
+echo "===> DONE $0 $*"

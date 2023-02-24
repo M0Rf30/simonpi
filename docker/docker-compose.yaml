@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  simonpi-rpi-4:
+    container_name: simonpi-rpi-4
+    image: m0rf30/simonpi:latest
+    tty: true
+    command: "simonpi run rpi-4"
+    privileged: true
+    volumes:
+      - /dev:/dev
+      - ~/.simonpi:/root/.simonpi
+    ports:
+      - "2222:2222"
