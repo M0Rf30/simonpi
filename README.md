@@ -42,23 +42,27 @@ Powered with :heart: by Arch Linux Arm images
 
 1. Download the sources and go into the simonpi directory
 
-   `git clone https://github.com/M0Rf30/simonpi.git`
-
-   `cd simonpi`
+   ```sh
+   git clone https://github.com/M0Rf30/simonpi.git
+   cd simonpi
+   ```
 
 2. Set permissions for QEMU bridge interface
 
-   `sudo echo "allow rasp-br0 >> /etc/qemu/bridge.conf`
-
+   ```sh
+   sudo echo "allow rasp-br0" >> /etc/qemu/bridge.conf
+   ```
 3. Download the required EDK2-AVMF images:
 
    and place them respectively in the follow path:
 
-   /usr/share/edk2-armvirt/aarch64/QEMU_EFI.fd
+   `/usr/share/edk2-armvirt/aarch64/QEMU_EFI.fd`
 
 4. Type:
 
-   `./simonpi -h for details`
+   ```sh
+   ./simonpi -h for details
+   ```
 
 and follow the help guidelines
 
@@ -68,11 +72,15 @@ You can find sim-on-pi on AUR
 
 Type:
 
-`yaourt -S simonpi`
+```sh
+yaourt -S simonpi
+```
 
 or
 
-`yaourt -S simonpi-git`
+```sh
+yaourt -S simonpi-git
+```
 
 for latest development changes
 
@@ -89,7 +97,9 @@ All the assets (disk images, downloaded archives..) are saved in
 
 You can transfer your sd img on a valid sdcard using programs like Etcher or this simple command:
 
-`dd if=sd-arch-MODEL-qemu.img of=/dev/sdX bs=4M`
+```sh
+dd if=sd-arch-MODEL-qemu.img of=/dev/sdX bs=4M
+```
 
 where MODEL could be:
 
